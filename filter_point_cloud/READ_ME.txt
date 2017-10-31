@@ -1,4 +1,4 @@
-The filter_point_cloud package takes a point cloud that is being published to /cloud_pcd and filters it using a radius outlier filter nodelet and also a voxel filter nodelet.
+The filter_point_cloud package takes a point cloud that is being published to /velodyne_points and filters it using a radius outlier filter nodelet and also a voxel filter nodelet.
 
 We recommend exporting your point cloud to a pcl file using pcl_ros bag_to_pcd:
 
