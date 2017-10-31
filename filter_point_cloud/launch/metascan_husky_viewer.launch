@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="use_sim_time" value="true"/>
+
+  <!-- Run rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filter_point_cloud)/rviz_config/model.rviz" />
+
+</launch>
