@@ -1,0 +1,39 @@
+-------------------------------
+Information on Caribou ROS bags
+-------------------------------
+
+27-11-33-54:
+	Duration:	40s
+	Snow:		Yes, lots
+	Notes:		Car doesn't move, not many features in the environment.
+			The only features are the car itself, one other car and the ground
+
+27-11-36-56
+	Duration:	13s
+	Snow:		Yes, lots
+	Notes:		Same exact thing as above bag, but shorter
+
+27-11-45-27
+	Duration:	40s
+	Snow:		Yes, lots
+	Notes:		This looks to be in a parking lot, lots of cars. 
+			Probably 5-6 cars nearby. Still car is not moving
+
+27-11-52-15
+	Duration:	90s
+	Snow:		Yes
+	Notes:		Car is moving through what looks to be a parking lot with buildings
+			(Maybe the Plaza). Lots of cars to localize off
+
+27-17-40-17
+	Duration:	12s
+	Snow:		Yes
+	Notes:		Car is moving but nothing in the environment
+
+27-17-40-57
+	Duration:	170s
+	Snow:		Yes
+	Notes:		Car is driving through test track, sometimes there are
+			lots of features and other times there are none. Car
+			goes through garage, there is a moving car at one point.
+	
