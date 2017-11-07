@@ -4,11 +4,13 @@
 
   <!-- Run voxel grid filter -->
   	<node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
-			<param name="/inputTopic" value="/velodyne_points" type="string" />
-      <rosparam param="/leafSize">[0.1, 0.1, 0.1]</rosparam>
+			<param name="/voxel/inputTopic" value="/velodyne_points" type="string" />
+      <rosparam param="/voxel/leafSize">[0.1, 0.1, 0.1]</rosparam>
 
   <!-- Run radius outlier removal filter -->
   <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
-    <param name="/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/radius/radius_search" value="0.8" type="double" />
+    <param name="/radius/minNeighbours" value="2" type="int" />
 
 </launch>

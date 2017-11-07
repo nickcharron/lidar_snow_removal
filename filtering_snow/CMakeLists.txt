@@ -16,10 +16,15 @@ catkin_package(
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+    #${PCL_INCLUDE_DIRS}
 )
 
-add_executable(radiusOutlierFilter src/radiusOutlierRemoval.cpp)
+  #link_directories(${PCL_LIBRARY_DIRS})
+  #add_definitions(${PCL_DEFINITIONS})
+
+add_executable(radiusOutlierFilter src/radiusOutlierFilter.cpp)
 add_executable(voxelGridFilter src/voxelGridFilter.cpp)
 
 target_link_libraries(radiusOutlierFilter ${catkin_LIBRARIES})
 target_link_libraries(voxelGridFilter ${catkin_LIBRARIES})
+  #target_link_libraries (radiusOutlierFilter ${PCL_LIBRARIES})

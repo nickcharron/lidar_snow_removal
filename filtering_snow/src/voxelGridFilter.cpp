@@ -46,8 +46,8 @@ main (int argc, char** argv)
   ROS_INFO("voxelGridFilter Node Initialize");
 
   // Get parameters from ROS parameter server
-  ros::param::get("inputTopic", inputTopic);
-  ros::param::get("leafSize", leafSize);
+  ros::param::get("/voxel/inputTopic", inputTopic);
+  ros::param::get("/voxel/leafSize", leafSize);
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
   ROS_INFO("Leaf size set to: %.3f, %0.3f, %0.3f" , leafSize[0], leafSize[1], leafSize[2] );
 
