@@ -8,5 +8,7 @@
       <rosparam param="/leafSize">[0.1, 0.1, 0.1]</rosparam>
 
   <!-- Run radius outlier removal filter -->
+  <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
+    <param name="/inputTopic" value="/velodyne_points" type="string" />
 
 </launch>
