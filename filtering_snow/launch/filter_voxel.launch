@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Run voxel grid filter -->
+  	<node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
+			<param name="/inputTopic" value="/velodyne_points" type="string" />
+      <rosparam param="/leafSize">[0.1, 0.1, 0.1]</rosparam>
+
+</launch>
