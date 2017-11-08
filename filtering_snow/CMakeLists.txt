@@ -18,8 +18,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-#add_executable(radiusOutlierFilter src/radiusOutlierRemoval.cpp)
+
+
+add_executable(radiusOutlierFilter src/radiusOutlierFilter.cpp)
 add_executable(voxelGridFilter src/voxelGridFilter.cpp)
 
-#target_link_libraries(radiusOutlierFilter ${catkin_LIBRARIES})
+target_link_libraries(radiusOutlierFilter ${catkin_LIBRARIES})
 target_link_libraries(voxelGridFilter ${catkin_LIBRARIES})

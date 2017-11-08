@@ -7,14 +7,22 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/radius_outlier_removal.h>
 
 ros::Publisher pub;
 std::string inputTopic;
-std::vector<double> leafSize;
+double radius;
+int minNeighbours;
 
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
+  // Check to make sure 2 arguments were passed to main -> not included
+  // if (argc != 2)
+  // {
+  //   ROS_ERROR("please specify command line arg '-r' or '-c'");
+  //   exit(0);
+  // }
+
   // Container for original & filtered data
   pcl::PCLPointCloud2* cloud = new pcl::PCLPointCloud2;
   pcl::PCLPointCloud2ConstPtr cloudPtr(cloud);
@@ -24,10 +32,12 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
   pcl_conversions::toPCL(*cloud_msg, *cloud);
 
   // Perform the actual filtering
-  pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
-  sor.setInputCloud (cloudPtr);
-  sor.setLeafSize (leafSize[0], leafSize[1], leafSize[2]);
-  sor.filter (cloud_filtered);
+  pcl::RadiusOutlierRemoval<pcl::PCLPointCloud2> outrem;
+  outrem.setInputCloud(cloudPtr);
+  outrem.setRadiusSearch(radius);
+  outrem.setMinNeighborsInRadius(minNeighbours);
+  // apply filter
+  outrem.filter (cloud_filtered);
 
   // Convert to ROS data type
   sensor_msgs::PointCloud2 output;
@@ -46,16 +56,18 @@ main (int argc, char** argv)
   ROS_INFO("voxelGridFilter Node Initialize");
 
   // Get parameters from ROS parameter server
-  ros::param::get("/voxel/inputTopic", inputTopic);
-  ros::param::get("/voxel/leafSize", leafSize);
+  ros::param::get("/radius/inputTopic", inputTopic);
+  ros::param::get("/radius/radius_search", radius);
+  ros::param::get("/radius/minNeighbours", minNeighbours);
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
-  ROS_INFO("Leaf size set to: %.3f, %0.3f, %0.3f" , leafSize[0], leafSize[1], leafSize[2] );
+  ROS_INFO("Radius search dimension is set to: %.2f", radius);
+  ROS_INFO("Minimum neighbours required in each search radius is set to: %d", minNeighbours);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe (inputTopic, 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub = nh.advertise<sensor_msgs::PointCloud2> ("/voxel/output", 1);
+  pub = nh.advertise<sensor_msgs::PointCloud2> ("/radius/output", 1);
 
   // Spin
   ros::spin ();
