@@ -22,6 +22,8 @@ include_directories(
 
 add_executable(radiusOutlierFilter src/radiusOutlierFilter.cpp)
 add_executable(voxelGridFilter src/voxelGridFilter.cpp)
+add_executable(statsOutlierFilter src/statsOutlierFilter.cpp)
 
 target_link_libraries(radiusOutlierFilter ${catkin_LIBRARIES})
 target_link_libraries(voxelGridFilter ${catkin_LIBRARIES})
+target_link_libraries(statsOutlierFilter ${catkin_LIBRARIES})

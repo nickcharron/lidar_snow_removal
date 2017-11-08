@@ -7,4 +7,7 @@
 			<param name="/inputTopic" value="/velodyne_points" type="string" />
       <rosparam param="/leafSize">[0.1, 0.1, 0.1]</rosparam>
 
+  <!-- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />
+
 </launch>

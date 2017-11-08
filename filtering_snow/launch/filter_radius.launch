@@ -10,4 +10,7 @@
     <!-- set the min. no. of neighbours to be within the search radius for the point to be included -->
     <param name="/radius/minNeighbours" value="2" type="int" />
 
+  <!-- Run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />
+
 </launch>
