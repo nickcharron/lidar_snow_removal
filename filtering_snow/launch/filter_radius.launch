@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Run radius outlier removal filter -->
+  <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
+    <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/radius/radius_search" value="0.8" type="double" />
+    <param name="/radius/minNeighbours" value="2" type="int" />
+
+</launch>
