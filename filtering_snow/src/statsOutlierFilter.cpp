@@ -7,12 +7,11 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/radius_outlier_removal.h>
+#include <pcl/filters/statistical_outlier_removal.h>
 
 ros::Publisher pub;
 std::string inputTopic;
-double radius;
-int minNeighbours;
+double meanK, stdDev;
 
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
@@ -25,12 +24,12 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
   pcl_conversions::toPCL(*cloud_msg, *cloud);
 
   // Perform the actual filtering
-  pcl::RadiusOutlierRemoval<pcl::PCLPointCloud2> outrem;
-  outrem.setInputCloud(cloudPtr);
-  outrem.setRadiusSearch(radius);
-  outrem.setMinNeighborsInRadius(minNeighbours);
+  pcl::StatisticalOutlierRemoval<pcl::PCLPointCloud2> sor;
+  sor.setInputCloud(cloudPtr);
+  sor.setMeanK (meanK);
+  sor.setStddevMulThresh (stdDev);
   // apply filter
-  outrem.filter (cloud_filtered);
+  sor.filter (cloud_filtered);
 
   // Convert to ROS data type
   sensor_msgs::PointCloud2 output;
@@ -49,18 +48,18 @@ main (int argc, char** argv)
   ROS_INFO("voxelGridFilter Node Initialize");
 
   // Get parameters from ROS parameter server
-  ros::param::get("/radius/inputTopic", inputTopic);
-  ros::param::get("/radius/radius_search", radius);
-  ros::param::get("/radius/minNeighbours", minNeighbours);
+  ros::param::get("/stats/inputTopic", inputTopic);
+  ros::param::get("/stats/meanK", meanK);
+  ros::param::get("/stats/stdDev", stdDev);
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
-  ROS_INFO("Radius search dimension is set to: %.2f", radius);
-  ROS_INFO("Minimum neighbours required in each search radius is set to: %d", minNeighbours);
+  ROS_INFO("The number of neighbours to analyze is set to: %.0f", meanK);
+  ROS_INFO("The standard deviation multiplier is set to: %.1f", stdDev);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe (inputTopic, 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub = nh.advertise<sensor_msgs::PointCloud2> ("/radius/output", 1);
+  pub = nh.advertise<sensor_msgs::PointCloud2> ("/stats/output", 1);
 
   // Spin
   ros::spin ();
