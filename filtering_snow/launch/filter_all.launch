@@ -3,9 +3,9 @@
 <launch>
 
   <!-- Run voxel grid filter -->
-  	<node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
+  	<!-- <node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
 			<param name="/voxel/inputTopic" value="/velodyne_points" type="string" />
-      <rosparam param="/voxel/leafSize">[0.1, 0.1, 0.1]</rosparam>
+      <rosparam param="/voxel/leafSize">[0.1, 0.1, 0.1]</rosparam> -->
 
   <!-- Run radius outlier removal filter -->
   <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
@@ -15,13 +15,33 @@
     <!-- set the min. no. of neighbours to be within the search radius for the point to be included -->
     <param name="/radius/minNeighbours" value="2" type="int" />
 
+  <!-- Run custom radius outlier removal filter -->
+  <node pkg="filtering_snow" type="radiusOutlierFilterCustom" name="radius_outlier_filter_custom" output="screen"/>
+    <param name="/radiusCustom/inputTopic" value="/velodyne_points" type="string" />
+    <!-- set the radius to search around each point -->
+    <param name="/radiusCustom/radius_search" value="0.5" type="double" />
+    <!-- set the min. no. of neighbours to be within the search radius for the point to be included -->
+    <param name="/radiusCustom/minNeighbours" value="5" type="int" />
+
   <!-- Run statistical outlier removal filter -->
-  <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
-    <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
+  <!-- <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
+    <param name="/stats/inputTopic" value="/velodyne_points" type="string" /> -->
     <!-- set the amount of neighbours to be analyzed for each point -->
-    <param name="/stats/meanK" value="50" type="double" />
+    <!-- <param name="/stats/meanK" value="50" type="double" /> -->
     <!-- set the standard deviation multiplier for the thresholding-->
-    <param name="/stats/stdDev" value="1" type="double" />
+    <!-- <param name="/stats/stdDev" value="1" type="double" /> -->
+
+  <!-- Run bilateral filter -->
+  <!-- <node pkg="filtering_snow" type="bilateralFilter" name="bilateral_filter" output="screen"/>
+    <param name="/bilateral/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/bilateral/sigmaS" value="1" type="double" />
+    <param name="/bilateral/sigmaR" value="1" type="double" /> -->
+
+  <!-- Run median filter -->
+  <!-- <node pkg="filtering_snow" type="medianFilter" name="median_filter" output="screen"/>
+    <param name="/median/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/bilateral/windowSize" value="5" type="int" />
+    <param name="/bilateral/maxMovement" value="100" type="double" /> --> -->
 
   <!-- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />
