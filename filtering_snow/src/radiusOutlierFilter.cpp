@@ -44,9 +44,9 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "voxelGridFilter");
+  ros::init (argc, argv, "radiusOutlierFilter");
   ros::NodeHandle nh;
-  ROS_INFO("voxelGridFilter Node Initialize");
+  ROS_INFO("Radius Outlier Removal Node Initialize");
 
   // Get parameters from ROS parameter server
   ros::param::get("/radius/inputTopic", inputTopic);

@@ -7,29 +7,37 @@
 			<param name="/voxel/inputTopic" value="/velodyne_points" type="string" />
       <rosparam param="/voxel/leafSize">[0.1, 0.1, 0.1]</rosparam> -->
 
-  <!-- Run radius outlier removal filter -->
+  <!-- Run radius outlier removal filter
+         - set the radius to search around each point
+         - set the min. no. of neighbours to be within the search radius for the point to be included -->
   <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
     <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
-    <!-- set the radius to search around each point -->
-    <param name="/radius/radius_search" value="0.8" type="double" />
-    <!-- set the min. no. of neighbours to be within the search radius for the point to be included -->
-    <param name="/radius/minNeighbours" value="2" type="int" />
+    <param name="/radius/radius_search" value="0.5" type="double" />
+    <param name="/radius/minNeighbours" value="8" type="int" />
 
-  <!-- Run custom radius outlier removal filter -->
+  <!-- Run custom radius outlier removal filter
+        - set the min. no. of neighbours to be within the search radius for the point to be included
+        - Set the radius search multiplier (i.e. radius_search = radius_multiplier * azAngle * range)
+        - Set the azimuth angle of the lidar (in degrees, for VLP16 - 0.4)
+        - Note: you need to specify a search radius because the dynamic search radius
+                only works for PointCloud2 right now. If PointCloud is used, it
+                will use the specified static search range-->
+
   <node pkg="filtering_snow" type="radiusOutlierFilterCustom" name="radius_outlier_filter_custom" output="screen"/>
+    <param name="/radiusCustom/radius_search" value="0.8" type="double" />
     <param name="/radiusCustom/inputTopic" value="/velodyne_points" type="string" />
-    <!-- set the radius to search around each point -->
-    <param name="/radiusCustom/radius_search" value="0.5" type="double" />
-    <!-- set the min. no. of neighbours to be within the search radius for the point to be included -->
-    <param name="/radiusCustom/minNeighbours" value="5" type="int" />
+    <param name="/radiusCustom/minNeighbours" value="3" type="int" />
+    <param name="/radiusCustom/radius_multiplier" value="1.1" type="double" />
+    <param name="/radiusCustom/azimuth_angle" value="0.4" type="double" />
 
-  <!-- Run statistical outlier removal filter -->
+
+  <!-- Run statistical outlier removal filter
+        - set the amount of neighbours to be analyzed for each point
+        - set the standard deviation multiplier for the thresholding-->
   <!-- <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
-    <param name="/stats/inputTopic" value="/velodyne_points" type="string" /> -->
-    <!-- set the amount of neighbours to be analyzed for each point -->
-    <!-- <param name="/stats/meanK" value="50" type="double" /> -->
-    <!-- set the standard deviation multiplier for the thresholding-->
-    <!-- <param name="/stats/stdDev" value="1" type="double" /> -->
+    <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/stats/meanK" value="50" type="double" />
+    <param name="/stats/stdDev" value="1" type="double" /> -->
 
   <!-- Run bilateral filter -->
   <!-- <node pkg="filtering_snow" type="bilateralFilter" name="bilateral_filter" output="screen"/>
