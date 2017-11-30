@@ -31,7 +31,6 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
   // Convert to PCL data type
     pcl_conversions::toPCL(*cloud_msg, *cloud);
 
-
   // Perform the actual filtering
     pcl::RadiusOutlierRemoval<pcl::PCLPointCloud2> outrem;
     outrem.setInputCloud(cloudPtr);
@@ -84,7 +83,6 @@ main (int argc, char** argv)
   pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2> ("/radius/output", 1);
   pubAvgDuration = nh.advertise<std_msgs::Float64> ("/radius/AverageProcessTime", 1);
   pubAvgRate = nh.advertise<std_msgs::Float64> ("/radius/AverageProcessRate", 1);
-
 
   // Spin
   ros::spin ();
