@@ -36,11 +36,13 @@ def main():
 
     # Set parameters
     minSR = 0.1
-    maxSR = 2.1
-    incrSR = 2 #0.2
+    maxSR = 3
+    incrSR = 0.05
     SR_iter = minSR
 
     minNumNeighbours = 6
+    f_times = open('scripts/radius_filter_process_times.txt','w')
+    f_rates = open('scripts/radius_filter_process_rates.txt','w')
 
     # Iterate through parameters
     while (not rospy.is_shutdown()) and (SR_iter < (maxSR + incrSR)):
@@ -49,10 +51,14 @@ def main():
         os.system("rosbag play -s 10 ~/bag_files/Lidar_Caribou/27-11-52-15/2017-01-27-11-52-15_short.bag &")
         rospy.sleep(10)
         # rospy.spin()
-        print(new_rate)
+        f_times.write('%.6f \n' % new_time)
+        f_rates.write('%.6f \n' % new_rate)
         os.system("rosnode kill radiusOutlierFilter")
         SR_iter = SR_iter + incrSR
     rospy.spin()
+
+    f_times.close
+    f_rates.close
 
 if __name__ == '__main__':
 
