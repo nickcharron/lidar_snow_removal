@@ -19,7 +19,7 @@ Information on Caribou ROS bags
 	Notes:		This looks to be in a parking lot, lots of cars. 
 			Probably 5-6 cars nearby. Still car is not moving
 
-27-11-52-15
+27-11-52-15 **
 	Duration:	90s
 	Snow:		Yes
 	Notes:		Car is moving through what looks to be a parking lot with buildings
@@ -36,4 +36,112 @@ Information on Caribou ROS bags
 	Notes:		Car is driving through test track, sometimes there are
 			lots of features and other times there are none. Car
 			goes through garage, there is a moving car at one point.
+
+26-16-19-12
+	Duration:	181s
+	Snow:		No
+	Notes:		none
+
+26-16-33-43
+	Duration:	272s
+	Snow:		No (barely any)
+	Notes:		none
+
+26-17-44-07
+	Duration:	308s
+	Snow:		Yes lots (most so far)
+	Notes:		Big variety of features, snow is really intense at the beginning then dies down. Starting to get dark
+
+26-18-42-13
+	Duration:	523s
+	Snow:		No 
+	Notes:		Night time
+
+24-14-30-55
+	Duration:	48s
+	Snow:		No
+	Notes:		none
+
+24-14-37-25
+	Duration:	68s
+	Snow:		No
+	Notes:		none
 	
+24-14-42-07
+	Duration:	188s
+	Snow:		No
+	Notes:		none
+
+24-15-35-27
+	ERROR READING BAG
+
+24-14-55-06
+	Duration:	225s
+	Snow:		No
+	Notes:		none
+
+24-15-48-57
+	Duration:	35s
+	Snow:		No
+	Notes:		none
+
+24-15-51-59
+	Duration:	165s
+	Snow:		No
+	Notes:		none
+
+24-15-58-26
+	Duration:	238s
+	Snow:		No
+	Notes:		none
+
+24-16-16-59
+	Duration:	187s
+	Snow:		No
+	Notes:		none
+
+24-16-41-36
+	Duration:	108s
+	Snow:		No
+	Notes:		none
+
+30-23-33-48
+	Duration:	12s
+	Snow:		No
+	Notes:		none
+
+31-11-32-52
+	Duration:	170s
+	Snow:		Yes lots (more than avg)
+	Notes:		No image. Drive on test track I think and goes through garage. No rtk gps
+
+31-11-55-08
+	Duration:	231s
+	Snow:		Yes lots (more than avg)
+	Notes:		No image. Drive on test track I think and goes through garage. No rtk gps
+
+31-12-13-45
+	Duration:	181s
+	Snow:		Yes lots
+	Notes:		Image is working, no rtk gps
+
+Loop_1_1
+	Duration:	203s
+	Snow:		No
+	Notes:		Looks kinda foggy, some snow on the ground
+
+Loop_1_2
+	Duration:	154s
+	Snow:		No
+	Notes:		Looks kinda foggy, some snow on the ground
+
+Loop1, 2, 3, 4, 7
+	Duration:	-
+	Snow:		No
+	Notes:		All of these have no snow, but different types of features.
+
+
+
+
+
+

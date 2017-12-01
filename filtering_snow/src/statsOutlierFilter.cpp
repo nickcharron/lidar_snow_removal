@@ -43,9 +43,9 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "voxelGridFilter");
+  ros::init (argc, argv, "statsOutlierFilter");
   ros::NodeHandle nh;
-  ROS_INFO("voxelGridFilter Node Initialize");
+  ROS_INFO("statsOutlierFilter Node Initialize");
 
   // Get parameters from ROS parameter server
   ros::param::get("/stats/inputTopic", inputTopic);
