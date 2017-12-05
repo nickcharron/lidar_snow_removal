@@ -45,6 +45,7 @@ main (int argc, char** argv)
   // Initialize ROS
   ros::init (argc, argv, "statsOutlierFilter");
   ros::NodeHandle nh;
+  std::cout << std::endl;
   ROS_INFO("statsOutlierFilter Node Initialize");
 
   // Get parameters from ROS parameter server

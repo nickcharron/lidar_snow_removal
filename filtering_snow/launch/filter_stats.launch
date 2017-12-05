@@ -2,13 +2,13 @@
 
 <launch>
 
-  <!-- Run statistical outlier removal filter -->
-  <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
+  <!-- Run statistical outlier removal filter
+      - set the amount of neighbours to be analyzed for each point
+      - set the standard deviation multiplier for the thresholding-->
+    <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
     <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
-    <!-- set the amount of neighbours to be analyzed for each point -->
     <param name="/stats/meanK" value="50" type="double" />
-    <!-- set the standard deviation multiplier for the thresholding-->
-    <param name="/stats/stdDev" value="1" type="double" />
+    <param name="/stats/stdDev" value="0.3" type="double" />
 
   <!-- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />

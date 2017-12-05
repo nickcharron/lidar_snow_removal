@@ -2,14 +2,6 @@
 
 <launch>
 
-  <!-- Run radius outlier removal filter
-         - set the radius to search around each point
-         - set the min. no. of neighbours to be within the search radius for the point to be included -->
-  <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
-    <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
-    <param name="/radius/radius_search" value="0.05" type="double" />
-    <param name="/radius/minNeighbours" value="3" type="int" />
-
   <!-- Run custom radius outlier removal filter
         - set the min. no. of neighbours to be within the search radius for the point to be included
         - Set the radius search multiplier (i.e. radius_search = radius_multiplier * azAngle * range)
@@ -26,20 +18,6 @@
     <param name="/radiusCustom/radius_multiplier" value="1.1" type="double" />
     <param name="/radiusCustom/azimuth_angle" value="0.4" type="double" />
     <param name="/radiusCustom/min_search_radius" value="0.03" type="double" />
-
-  <!-- Run statistical outlier removal filter
-        - set the amount of neighbours to be analyzed for each point
-        - set the standard deviation multiplier for the thresholding-->
-  <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
-    <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
-    <param name="/stats/meanK" value="50" type="double" />
-    <param name="/stats/stdDev" value="0.3" type="double" />
-
-  <!-- Run voxel grid filter -->
-    <node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
-      <param name="/voxel/inputTopic" value="/velodyne_points" type="string" />
-      <rosparam param="/voxel/leafSize">[0.2, 0.2, 0.2]</rosparam>
-
   <!-- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />
 
