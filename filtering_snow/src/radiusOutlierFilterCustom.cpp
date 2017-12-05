@@ -14,7 +14,7 @@ ros::Publisher pubOutputPoints, pubAvgDuration, pubAvgRate;
 ros::Duration currentDuration(0), accumDuration(0);
 ros::Time begin;
 std::string inputTopic;
-double radiusSearch, multiplier, azAngle;
+double radiusSearch, multiplier, azAngle, minSR;
 std_msgs::Float64 averageDuration, averageRate;
 int minNeighbours, noCloudsProcessed = 0;
 
@@ -37,6 +37,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     outrem.setRadiusSearch(radiusSearch);
     outrem.setRadiusMultiplier(multiplier);
     outrem.setAzimuthAngle(azAngle);
+    outrem.setMinSearchRadius(minSR);
     outrem.setMinNeighborsInRadius(minNeighbours);
     // Get current time:
       ros::Time begin = ros::Time::now();
@@ -68,6 +69,7 @@ main (int argc, char** argv)
   // Initialize ROS
   ros::init (argc, argv, "radiusOutlierFilterCustom");
   ros::NodeHandle nh;
+  std::cout << std::endl;
   ROS_INFO("Custom Radius Outlier Removal Node Initialize");
 
   // Get parameters from ROS parameter server
@@ -75,13 +77,15 @@ main (int argc, char** argv)
   ros::param::get("/radiusCustom/radius_search", radiusSearch);
   ros::param::get("/radiusCustom/radius_multiplier", multiplier);
   ros::param::get("/radiusCustom/azimuth_angle", azAngle);
-  ros::param::get("/radiusCustom/minNeighbours", minNeighbours);
-  std::cout << std::endl;
+  ros::param::get("/radiusCustom/min_Neighbours", minNeighbours);
+  ros::param::get("/radiusCustom/min_search_radius", minSR);
+
   ROS_INFO("Filter Information: radiusOutlierFilterCustom");
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
   ROS_INFO("Radius search multiplier dimension is set to: %.2f", multiplier);
   ROS_INFO("Azimuth angle of the lidar is set to: %.2f degrees", azAngle);
   ROS_INFO("Minimum neighbours required in each search radius is set to: %d", minNeighbours);
+  ROS_INFO("Minimum search radius set to: %.3f", minSR);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe (inputTopic, 1, cloud_cb);

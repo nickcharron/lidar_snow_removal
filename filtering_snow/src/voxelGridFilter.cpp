@@ -43,6 +43,7 @@ main (int argc, char** argv)
   // Initialize ROS
   ros::init (argc, argv, "voxelGridFilter");
   ros::NodeHandle nh;
+  std::cout << std::endl;
   ROS_INFO("voxelGridFilter Node Initialize");
 
   // Get parameters from ROS parameter server

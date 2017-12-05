@@ -66,6 +66,7 @@ main (int argc, char** argv)
   // Initialize ROS
   ros::init (argc, argv, "radiusOutlierFilter");
   ros::NodeHandle nh;
+  std::cout << std::endl;
   ROS_INFO("Radius Outlier Removal Node Initialize");
 
   // Get parameters from ROS parameter server
