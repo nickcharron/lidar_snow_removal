@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 
 <launch>
+  <!-- Run box filter to remove car -->
+  <node pkg="filtering_snow" type="cropBoxFilter" name="crop_box_filter" output="screen"/>
+    <param name="/cropbox/inputTopic" value="/velodyne_points" type="string" />
+    <rosparam param="/cropbox/maxvector">[2.5, 0.935, 0]</rosparam>
+    <rosparam param="/cropbox/minvector">[-2.5, -0.935, -1.480]</rosparam>
+      <!-- minvector = [minX, minY, minZ] -->
 
   <!-- Run radius outlier removal filter
          - set the radius to search around each point
@@ -10,7 +16,7 @@
     <param name="/radius/radius_search" value="0.05" type="double" />
     <param name="/radius/minNeighbours" value="3" type="int" />
 
-  <!-- Run custom radius outlier removal filter
+  <!-- Run dynamic radius outlier removal filter
         - set the min. no. of neighbours to be within the search radius for the point to be included
         - Set the radius search multiplier (i.e. radius_search = radius_multiplier * azAngle * range)
         - Set the azimuth angle of the lidar (in degrees, for VLP16 - 0.4)
@@ -19,13 +25,13 @@
                 only works for PointCloud2 right now. If PointCloud is used, it
                 will use the specified static search range-->
 
-  <node pkg="filtering_snow" type="radiusOutlierFilterCustom" name="radius_outlier_filter_custom" output="screen"/>
-    <param name="/radiusCustom/radius_search" value="0.8" type="double" />
-    <param name="/radiusCustom/inputTopic" value="/velodyne_points" type="string" />
-    <param name="/radiusCustom/min_Neighbours" value="3" type="int" />
-    <param name="/radiusCustom/radius_multiplier" value="1.1" type="double" />
-    <param name="/radiusCustom/azimuth_angle" value="0.4" type="double" />
-    <param name="/radiusCustom/min_search_radius" value="0.03" type="double" />
+  <node pkg="filtering_snow" type="dynamicRadiusOutlierFilter" name="dynamic_radius_outlier_filter" output="screen"/>
+    <param name="/radiusDynamic/radius_search" value="0.8" type="double" />
+    <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
+    <param name="/radiusDynamic/radius_multiplier" value="1.1" type="double" />
+    <param name="/radiusDynamic/azimuth_angle" value="0.4" type="double" />
+    <param name="/radiusDynamic/min_search_radius" value="0.03" type="double" />
 
   <!-- Run statistical outlier removal filter
         - set the amount of neighbours to be analyzed for each point

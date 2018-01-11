@@ -1,0 +1,17 @@
+scan_filter_chain:
+- name: box
+  type: LaserScanBoxFilter
+  params:
+    box_frame: base_link
+    min_x: -2.5
+    max_x: 2.5
+    min_y: -0.935
+    max_y: 0.935
+    min_z: -1.480
+    max_z: 0.0
+
+# Car dimensions:
+#	Length: 4930 (x dim) 	
+#	Width:	1864 (y dim)	
+#	Height: 1476 (z dim)
+

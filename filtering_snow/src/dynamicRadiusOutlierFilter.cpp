@@ -8,7 +8,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/radius_outlier_removal_custom.h>
+#include <pcl/filters/dynamic_radius_outlier_removal.h>
 
 ros::Publisher pubOutputPoints, pubAvgDuration, pubAvgRate;
 ros::Duration currentDuration(0), accumDuration(0);
@@ -32,7 +32,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     pcl_conversions::toPCL(*cloud_msg, *cloud);
 
   // Perform the actual filtering
-    pcl::RadiusOutlierRemovalCustom<pcl::PCLPointCloud2> outrem;
+    pcl::DynamicRadiusOutlierRemoval<pcl::PCLPointCloud2> outrem;
     outrem.setInputCloud(cloudPtr);
     outrem.setRadiusSearch(radiusSearch);
     outrem.setRadiusMultiplier(multiplier);
@@ -67,20 +67,20 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "radiusOutlierFilterCustom");
+  ros::init (argc, argv, "dynamicRadiusOutlierFilter");
   ros::NodeHandle nh;
   std::cout << std::endl;
-  ROS_INFO("Custom Radius Outlier Removal Node Initialize");
+  ROS_INFO("Dynamic Radius Outlier Removal Node Initialize");
 
   // Get parameters from ROS parameter server
-  ros::param::get("/radiusCustom/inputTopic", inputTopic);
-  ros::param::get("/radiusCustom/radius_search", radiusSearch);
-  ros::param::get("/radiusCustom/radius_multiplier", multiplier);
-  ros::param::get("/radiusCustom/azimuth_angle", azAngle);
-  ros::param::get("/radiusCustom/min_Neighbours", minNeighbours);
-  ros::param::get("/radiusCustom/min_search_radius", minSR);
+  ros::param::get("/radiusDynamic/inputTopic", inputTopic);
+  ros::param::get("/radiusDynamic/radius_search", radiusSearch);
+  ros::param::get("/radiusDynamic/radius_multiplier", multiplier);
+  ros::param::get("/radiusDynamic/azimuth_angle", azAngle);
+  ros::param::get("/radiusDynamic/min_Neighbours", minNeighbours);
+  ros::param::get("/radiusDynamic/min_search_radius", minSR);
 
-  ROS_INFO("Filter Information: radiusOutlierFilterCustom");
+  ROS_INFO("Filter Information: dynamicRadiusOutlierFilter");
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
   ROS_INFO("Radius search multiplier dimension is set to: %.2f", multiplier);
   ROS_INFO("Azimuth angle of the lidar is set to: %.2f degrees", azAngle);
@@ -91,9 +91,9 @@ main (int argc, char** argv)
   ros::Subscriber sub = nh.subscribe (inputTopic, 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2> ("/radiusCustom/output", 1);
-  pubAvgDuration = nh.advertise<std_msgs::Float64> ("/radiusCustom/AverageProcessTime", 1);
-  pubAvgRate = nh.advertise<std_msgs::Float64> ("/radiusCustom/AverageProcessRate", 1);
+  pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2> ("/radiusDynamic/output", 1);
+  pubAvgDuration = nh.advertise<std_msgs::Float64> ("/radiusDynamic/AverageProcessTime", 1);
+  pubAvgRate = nh.advertise<std_msgs::Float64> ("/radiusDynamic/AverageProcessRate", 1);
 
   // Spin
   ros::spin ();

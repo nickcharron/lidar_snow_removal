@@ -1,0 +1,28 @@
+# Parameters for the internal ground segmentation algorithm
+
+# Max radius of points to consider
+rmax:                     100
+# Max number of points to consider per bin
+num_maxbinpoints:         200
+# Number of seed points to use in GP
+num_seedpoints:           10
+# Number of angular bins to use
+num_ang_bins:             72
+# Number of linear bins to use
+num_lin_bins:             200
+
+# Gaussian Process (GP) Kernel hyperparameters
+gp_lengthparameter:       10
+gp_covariancescale:       1
+gp_modelnoise:            0.3
+gp_groundmodelconfidence: 5
+gp_grounddataconfidence:  5
+# Ground Height Threshold
+gp_groundthreshold:       0.3
+
+# Height (m) used for drivable surface under overhanging obstacles
+robotheight:              1.2
+# Maximum range for seed points
+seeding_maxrange:         50
+# Maximum height for seed points
+seeding_maxheight:        15

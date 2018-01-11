@@ -6,7 +6,7 @@
       - set the radius to search around each point
       - set the min. no. of neighbours to be within the search radius for the point to be included -->
   <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
-    <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/radius/inputTopic" value="/velodyne_points2" type="string" />
     <param name="/radius/radius_search" value="0.05" type="double" />
     <param name="/radius/minNeighbours" value="3" type="int" />
 
