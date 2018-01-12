@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 // PCL specific includes
@@ -13,6 +14,27 @@ std::string inputTopic;
 ros::Publisher pubOutputPoints;
 Eigen::Vector4f minVec, maxVec;
 std::vector<float> minVector, maxVector;
+bool set_negative, outputPoints;
+double point_cloud_number_crop = 0;
+std::ofstream resultsFile;
+
+void exportPoints(pcl::PCLPointCloud2 input)
+{
+    point_cloud_number_crop++;
+
+    // Send the input dataset to the spatial locator
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::fromPCLPointCloud2 (input, *cloud);
+
+    // iterate through all points and output resutls
+    for (int cp = 0; cp < static_cast<int> (cloud->size ()); ++cp)
+    {
+      float x_i = cloud->points[cp].x;
+      float y_i = cloud->points[cp].y;
+      // output data into results file
+      resultsFile << std::fixed << std::setprecision(6) << x_i << ", " << y_i << ", " << 0 << ", " << std::endl;
+    }
+}
 
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
@@ -33,8 +55,23 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     cropper.setMax(maxVec);
     cropper.setMin(minVec);
     cropper.setInputCloud(cloudPtr);
-    cropper.setNegative(true);
+    cropper.setNegative(set_negative);
     cropper.filter (cloud_filtered);
+
+  // Output number of points remaining
+    if (outputPoints)
+    {
+      //Create results file and open it
+      std::stringstream sstm;
+      sstm << "//home//nick//catkin_ws//src//lidar_snow_removal//filtering_snow//results//CROPBOX//results" << point_cloud_number_crop << ".txt";
+      std::string path_local = sstm.str();
+      resultsFile.open (path_local.c_str());
+
+      exportPoints(cloud_filtered);
+
+      resultsFile.close();
+
+    }
 
   // Convert to ROS data type
     sensor_msgs::PointCloud2 output;
@@ -54,9 +91,11 @@ main (int argc, char** argv)
   ROS_INFO("Crop Box Filter Node Initialize");
 
   // Get parameters from ROS parameter server
-  ros::param::get("/cropbox/inputTopic", inputTopic);
-  ros::param::get("/cropbox/minvector", minVector);
-  ros::param::get("/cropbox/maxvector", maxVector);
+  ros::param::get(ros::this_node::getName() + "/inputTopic", inputTopic);
+  ros::param::get(ros::this_node::getName() + "/minvector", minVector);
+  ros::param::get(ros::this_node::getName() + "/maxvector", maxVector);
+  ros::param::get(ros::this_node::getName() + "/setNegative", set_negative);
+  ros::param::get(ros::this_node::getName() + "/outputNoPoints", outputPoints);
 
   ROS_INFO("The input topic is %s" , inputTopic.c_str());
 
@@ -64,7 +103,7 @@ main (int argc, char** argv)
   ros::Subscriber sub = nh.subscribe (inputTopic, 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2> ("/cropbox/output", 1);
+  pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2> (ros::this_node::getName() + "/output", 1);
 
   // Spin
   ros::spin ();

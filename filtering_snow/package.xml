@@ -16,7 +16,7 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>pcl-pcl-1.8.1</build_depend>
-  <depend>libwave</depend>
+  <!-- <depend>libwave</depend> -->
   <!-- <build_depend>libpcl-all-dev</build_depend> -->
   <build_export_depend>pcl_conversions</build_export_depend>
   <build_export_depend>pcl_ros</build_export_depend>
