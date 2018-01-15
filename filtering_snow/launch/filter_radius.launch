@@ -11,6 +11,6 @@
     <param name="/radius/minNeighbours" value="3" type="int" />
 
   <!-- Run rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/rviz_config.rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />
 
 </launch>
