@@ -2,12 +2,12 @@
 
 <launch>
   <!-- Run box filter to remove car points -->
-  <node pkg="filtering_snow" type="cropBoxFilter" name="crop_box_filter" output="screen"/>
-    <!-- <param name="/cropbox/inputTopic" value="/velodyne_points" type="string" />
+  <!-- <node pkg="filtering_snow" type="cropBoxFilter" name="cropbox" output="screen"/>
+    <param name="/cropbox/inputTopic" value="/velodyne_points" type="string" />
     <rosparam param="/cropbox/maxvector">[2.5, 0.935, 0]</rosparam>
     <rosparam param="/cropbox/minvector">[-2.5, -0.935, -1.480]</rosparam>
-    <param name="setNegative" value="true" type="bool" />
-    <param name="outputNoPoints" value="false" type="bool" /> -->
+    <param name="/cropbox/setNegative" value="true" type="bool" />
+    <param name="/cropbox/outputNoPoints" value="false" type="bool" /> -->
       <!-- minvector = [minX, minY, minZ] -->
 
   <!-- Run radius outlier removal filter
@@ -31,8 +31,8 @@
     <param name="/radiusDynamic/radius_search" value="0.8" type="double" />
     <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
     <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
-    <param name="/radiusDynamic/radius_multiplier" value="1.25" type="double" />
-    <param name="/radiusDynamic/azimuth_angle" value="0.4" type="double" />
+    <param name="/radiusDynamic/radius_multiplier" value="3" type="double" />
+    <param name="/radiusDynamic/azimuth_angle" value="0.16" type="double" />
     <param name="/radiusDynamic/min_search_radius" value="0.04" type="double" />
 
   <!-- Run statistical outlier removal filter

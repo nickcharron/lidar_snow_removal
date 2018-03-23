@@ -15,8 +15,8 @@
     <param name="/radiusDynamic/radius_search" value="0.8" type="double" />
     <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
     <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
-    <param name="/radiusDynamic/radius_multiplier" value="1.25" type="double" />
-    <param name="/radiusDynamic/azimuth_angle" value="0.4" type="double" />
+    <param name="/radiusDynamic/radius_multiplier" value="3" type="double" />
+    <param name="/radiusDynamic/azimuth_angle" value="0.16" type="double" />
     <param name="/radiusDynamic/min_search_radius" value="0.04" type="double" />
   <!-- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />

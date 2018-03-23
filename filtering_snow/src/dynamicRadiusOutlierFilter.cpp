@@ -60,7 +60,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
   // Publish the data
     pubOutputPoints.publish (output);
     pubAvgDuration.publish (averageDuration);
-    // pubAvgRate.publish (averageRate);
+    pubAvgRate.publish (averageRate);
 }
 
 int

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<!-- Run node to update the tf timestamps-->
+ <node pkg="filtering_snow" type="restamp_tf" name="restamp_tf" output="screen"/>
+  <param name="/tf_input_topic" value="/tf_old" type="string" />
+  <param name="/tf_output_topic" value="/tf" type="string" />
+
+ <!-- set sim time -->
+ <param name="/use_sim_time" value="true" type="bool" />
+
+ <!-- Run box filter -->
+ <!-- <node pkg="filtering_snow" type="cropBoxFilter2" name="cropbox" output="screen">
+   <param name="inputTopic" value="/cloud_pcd" type="string" />
+   <rosparam param="maxvector">[30, 40, 5]</rosparam>
+   <rosparam param="minvector">[-30, -20, -7]</rosparam>
+   <param name="setNegative" value="false" type="bool" />
+   <param name="outputNoPoints" value="false" type="bool" />
+ </node> -->
+
+  <!-- Run rviz -->
+    <node name="rviz1" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />
+
+</launch>
