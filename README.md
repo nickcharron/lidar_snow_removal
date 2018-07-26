@@ -1,8 +1,9 @@
 # lidar_snow_removal
 This repo is a set of nodes for ROS to filter point clouds with the goal of removing snow in Lidar data.
 
-You will also need to fork our custom pcl repo (pcl_1.7.0_custom) to run the custom filters: https://github.com/nickcharron/pcl_1.7.0_custom
-Make sure you are not using pcl_ros from apt-get or it will install and use its own version of pcl.
+You will also need to fork our custom pcl repo (pcl_1.7.0_custom) to run the custom dynamic radius outlier filter:             
+  https://github.com/nickcharron/pcl_1.7.0_custom
+  Make sure you are not using pcl_ros from apt-get or it will install and use its own version of pcl.
 
 To use this code, simply change the topics in the launch files to your scan topics, then play your bags and launch the appropriate launch files.
 
