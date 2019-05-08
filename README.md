@@ -12,6 +12,4 @@ To use this code, simply change the topics in the launch files to your scan topi
 Please view the results videos on my youtube channel: https://www.youtube.com/channel/UC3FoqSLn12-dKOQ1Sn0xbFQ/featured?view_as=subscriber
 
 ***NOTE***
-As of now, my custom fork of PCL is not publicly available. This will soon be pushed back to PCL so that it is available for all. Please comment out the followinig lines:
-  https://github.com/nickcharron/lidar_snow_removal/blob/24c6a23063b059e98f36c365c1cf33960a093b5c/filtering_snow/CMakeLists.txt#L35
-  https://github.com/nickcharron/lidar_snow_removal/blob/24c6a23063b059e98f36c365c1cf33960a093b5c/filtering_snow/CMakeLists.txt#L43
+As of now, this requires you to build PCL from source using my fork which is very time consuming. I am in the process of writing this filter as a standalone package so that you can use your own version of PCL already installed. 
