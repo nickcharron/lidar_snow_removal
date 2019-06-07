@@ -22,13 +22,9 @@
         - set the min. no. of neighbours to be within the search radius for the point to be included
         - Set the radius search multiplier (i.e. radius_search = radius_multiplier * azAngle * range)
         - Set the azimuth angle of the lidar (in degrees, for VLP16 - 0.4)
-        - Set the minimum search radius (default 0) This stops all the close points from being removed
-        - Note: you need to specify a search radius because the dynamic search radius
-                only works for PointCloud2 right now. If PointCloud is used, it
-                will use the specified static search range-->
+        - Set the minimum search radius. This stops all the close points from being removed-->
 
   <node pkg="filtering_snow" type="dynamicRadiusOutlierFilter" name="dynamic_radius_outlier_filter" output="screen"/>
-    <param name="/radiusDynamic/radius_search" value="0.8" type="double" />
     <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
     <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
     <param name="/radiusDynamic/radius_multiplier" value="3" type="double" />

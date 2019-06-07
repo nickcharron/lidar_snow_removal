@@ -1,15 +1,11 @@
 # lidar_snow_removal
 This repo is a set of nodes for ROS to filter point clouds with the goal of removing snow in Lidar data.
 
-You will also need to fork our custom pcl repo to run the custom dynamic radius outlier filter: 
-
-  https://github.com/nickcharron/pcl
-
-  Make sure you are not using pcl_ros from apt-get or it will install and use its own version of pcl.
-
 To use this code, simply change the topics in the launch files to your scan topics, then play your bags and launch the appropriate launch files.
 
 Please view the results videos on my youtube channel: https://www.youtube.com/channel/UC3FoqSLn12-dKOQ1Sn0xbFQ/featured?view_as=subscriber
 
+Please refer to our published paper on this work: https://ieeexplore.ieee.org/abstract/document/8575761
+
 ***NOTE***
-As of now, this requires you to build PCL from source using my fork which is very time consuming. I am in the process of writing this filter as a standalone package so that you can use your own version of PCL already installed. 
+This package used to rely on my custom fork of pcl which had the filter implementation for PointCloud2 data type. This is now all self-contained in this repo. However, the DROR filter only works with pcl::PointCloud<pcl::PointXYZ> data type. The ROS node converts the scans to this format before filtering then converts back to ROS msg.
