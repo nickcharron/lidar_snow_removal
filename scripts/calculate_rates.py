@@ -50,8 +50,8 @@ def main():
         setParameters(SR_iter, minNumNeighbours)
         count = count + 1
         rospy.logwarn("Running iteration %d, out of %d\n", count, (maxSR-minSR)/incrSR+1)
-        os.system("rosrun filtering_snow radiusOutlierFilter &")
-        os.system("rosrun filtering_snow dynamicRadiusOutlierFilter &")
+        os.system("rosrun lidar_snow_removal radiusOutlierFilter &")
+        os.system("rosrun lidar_snow_removal dynamicRadiusOutlierFilter &")
         os.system("rosbag play -s 10 ~/bag_files/Caribou/2017-01-27-11-52-15_short.bag &")
         rospy.sleep(10)
         # rospy.spin()

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>filtering_snow</name>
+  <name>lidar_snow_removal</name>
   <version>2.0.0</version>
-  <description>The filtering_snow package subscribes to incoming velodyne point
+  <description>The lidar_snow_removal package subscribes to incoming velodyne point
   cloud messages and runs various filter types with the goal of testing the
   ability of these filters to remove snow and improve Lidar based SLAM. </description>
   <maintainer email="nicholas.c.charron@gmail.com">Nick Charron</maintainer>

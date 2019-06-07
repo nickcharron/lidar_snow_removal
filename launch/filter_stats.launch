@@ -5,12 +5,12 @@
   <!-- Run statistical outlier removal filter
       - set the amount of neighbours to be analyzed for each point
       - set the standard deviation multiplier for the thresholding-->
-    <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
+    <node pkg="lidar_snow_removal" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
     <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
     <param name="/stats/meanK" value="50" type="double" />
     <param name="/stats/stdDev" value="0.3" type="double" />
 
   <!-- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lidar_snow_removal)/config/rviz_config.rviz" />
 
 </launch>

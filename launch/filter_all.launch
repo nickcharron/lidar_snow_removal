@@ -2,7 +2,7 @@
 
 <launch>
   <!-- Run box filter to remove car points -->
-  <!-- <node pkg="filtering_snow" type="cropBoxFilter" name="cropbox" output="screen"/>
+  <!-- <node pkg="lidar_snow_removal" type="cropBoxFilter" name="cropbox" output="screen"/>
     <param name="/cropbox/inputTopic" value="/velodyne_points" type="string" />
     <rosparam param="/cropbox/maxvector">[2.5, 0.935, 0]</rosparam>
     <rosparam param="/cropbox/minvector">[-2.5, -0.935, -1.480]</rosparam>
@@ -13,7 +13,7 @@
   <!-- Run radius outlier removal filter
          - set the radius to search around each point
          - set the min. no. of neighbours to be within the search radius for the point to be included -->
-  <node pkg="filtering_snow" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
+  <node pkg="lidar_snow_removal" type="radiusOutlierFilter" name="radius_outlier_filter" output="screen"/>
     <param name="/radius/inputTopic" value="/velodyne_points" type="string" />
     <param name="/radius/radius_search" value="0.05" type="double" />
     <param name="/radius/minNeighbours" value="3" type="int" />
@@ -24,7 +24,7 @@
         - Set the azimuth angle of the lidar (in degrees, for VLP16 - 0.4)
         - Set the minimum search radius. This stops all the close points from being removed-->
 
-  <node pkg="filtering_snow" type="dynamicRadiusOutlierFilter" name="dynamic_radius_outlier_filter" output="screen"/>
+  <node pkg="lidar_snow_removal" type="dynamicRadiusOutlierFilter" name="dynamic_radius_outlier_filter" output="screen"/>
     <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
     <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
     <param name="/radiusDynamic/radius_multiplier" value="3" type="double" />
@@ -34,17 +34,17 @@
   <!-- Run statistical outlier removal filter
         - set the amount of neighbours to be analyzed for each point
         - set the standard deviation multiplier for the thresholding-->
-  <node pkg="filtering_snow" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
+  <node pkg="lidar_snow_removal" type="statsOutlierFilter" name="statistical_outlier_filter" output="screen"/>
     <param name="/stats/inputTopic" value="/velodyne_points" type="string" />
     <param name="/stats/meanK" value="50" type="double" />
     <param name="/stats/stdDev" value="0.3" type="double" />
 
   <!-- Run voxel grid filter -->
-    <node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
+    <node pkg="lidar_snow_removal" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
       <param name="/voxel/inputTopic" value="/velodyne_points" type="string" />
       <rosparam param="/voxel/leafSize">[0.2, 0.2, 0.2]</rosparam>
 
   <!-- Run rviz -->
-    <node name="rviz1" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />
+    <node name="rviz1" pkg="rviz" type="rviz" args="-d $(find lidar_snow_removal)/config/rviz_config.rviz" />
 
 </launch>

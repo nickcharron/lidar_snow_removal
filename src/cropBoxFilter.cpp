@@ -63,7 +63,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
     {
       //Create results file and open it
       std::stringstream sstm;
-      sstm << "//home//nick//catkin_ws//src//lidar_snow_removal//filtering_snow//results//CROPBOX//results" << point_cloud_number_crop << ".txt";
+      sstm << "//home//nick//catkin_ws//src//lidar_snow_removal//lidar_snow_removal//results//CROPBOX//results" << point_cloud_number_crop << ".txt";
       std::string path_local = sstm.str();
       resultsFile.open (path_local.c_str());
 

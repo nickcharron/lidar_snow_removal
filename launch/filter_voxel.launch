@@ -3,11 +3,11 @@
 <launch>
 
   <!-- Run voxel grid filter -->
-  	<node pkg="filtering_snow" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
+  	<node pkg="lidar_snow_removal" type="voxelGridFilter" name="voxel_grid_filter" output="screen"/>
 			<param name="/inputTopic" value="/velodyne_points" type="string" />
       <rosparam param="/leafSize">[0.2, 0.2, 0.2]</rosparam>
 
   <!-- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find filtering_snow)/config/rviz_config.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lidar_snow_removal)/config/rviz_config.rviz" />
 
 </launch>

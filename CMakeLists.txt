@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(filtering_snow)
+project(lidar_snow_removal)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
