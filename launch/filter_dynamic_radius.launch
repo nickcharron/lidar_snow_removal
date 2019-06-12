@@ -9,11 +9,13 @@
         - Set the minimum search radius This stops all the close points from being removed-->
 
   <node pkg="lidar_snow_removal" type="dynamicRadiusOutlierFilter" name="dynamic_radius_outlier_filter" output="screen"/>
-    <param name="/radiusDynamic/inputTopic" value="/velodyne_points" type="string" />
-    <param name="/radiusDynamic/min_Neighbours" value="3" type="int" />
-    <param name="/radiusDynamic/radius_multiplier" value="3" type="double" />
-    <param name="/radiusDynamic/azimuth_angle" value="0.16" type="double" />
-    <param name="/radiusDynamic/min_search_radius" value="0.04" type="double" />
+    <param name="/DROR/inputTopic" value="/velodyne_points" type="string" />
+    <param name="/DROR/min_Neighbours" value="3" type="int" />
+    <param name="/DROR/radius_multiplier" value="3" type="double" />
+    <param name="/DROR/azimuth_angle" value="0.16" type="double" />
+    <param name="/DROR/min_search_radius" value="0.04" type="double" />
+    <param name="/DROR/write_to_kitty_format" value="true" type="bool" />
+    <param name="/DROR/output_directory" value="/home/nick/snow_removal_results" type="string" />
   <!-- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lidar_snow_removal)/config/rviz_config.rviz" />
 

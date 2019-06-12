@@ -1,8 +1,8 @@
 #include "DROR.h"
 
-typedef pcl::KdTreeFLANN<pcl::PointXYZ> KdTree;
+typedef pcl::KdTreeFLANN<pcl::PointXYZI> KdTree;
 typedef KdTree::Ptr KdTreePtr;
-typedef pcl::PointCloud<pcl::PointXYZ> PointCloud;
+typedef pcl::PointCloud<pcl::PointXYZI> PointCloud;
 typedef PointCloud::Ptr PointCloudPtr;
 
 DROR::DROR(){
@@ -48,18 +48,18 @@ double DROR::GetMinSearchRadius() {
   return min_search_radius_;
 }
 
-void DROR::Filter(pcl::PointCloud<pcl::PointXYZ>::Ptr& input_cloud,
-                  pcl::PointCloud<pcl::PointXYZ>& filtered_cloud) {
+void DROR::Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
+                  pcl::PointCloud<pcl::PointXYZI>& filtered_cloud) {
   // Clear points in output cloud
   filtered_cloud.clear();
 
   // init. kd search tree
-  KdTreePtr kd_tree_(new pcl::KdTreeFLANN<pcl::PointXYZ>());
+  KdTreePtr kd_tree_(new pcl::KdTreeFLANN<pcl::PointXYZI>());
   kd_tree_->setInputCloud(input_cloud);
 
   // Go over all the points and check which doesn't have enough neighbors
   // perform filtering
-  for (pcl::PointCloud<pcl::PointXYZ>::iterator it = input_cloud->begin();
+  for (pcl::PointCloud<pcl::PointXYZI>::iterator it = input_cloud->begin();
        it != input_cloud->end(); ++it) {
     float x_i = it->x;
     float y_i = it->y;

@@ -74,8 +74,8 @@ public:
    * @param input_cloud cloud to be filtered
    * @param filtered_cloud cloud to save to
    */
-  void Filter(pcl::PointCloud<pcl::PointXYZ>::Ptr& input_cloud,
-              pcl::PointCloud<pcl::PointXYZ>& filtered_cloud);
+  void Filter(pcl::PointCloud<pcl::PointXYZI>::Ptr& input_cloud,
+              pcl::PointCloud<pcl::PointXYZI>& filtered_cloud);
 
 private:
   double radius_multiplier_, azimuth_angle_, min_neighbors_,
