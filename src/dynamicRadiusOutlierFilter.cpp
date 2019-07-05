@@ -84,7 +84,12 @@ std::string convertTimeToKitty(const std_msgs::Header &header) {
   } else {
     second = to_string(local_tm.tm_sec);
   }
+
   nanosecond = std::to_string(header.stamp.nsec);
+  int missingZeros = 9 - nanosecond.size();
+  for (int i = 0; i < missingZeros; i++){
+    nanosecond = "0" + nanosecond;
+  }
 
   string outputTime = year + "-" + month + "-" + day + " " + hour + ":" +
                       minute + ":" + second + "." + nanosecond;
@@ -111,7 +116,7 @@ void writeCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in) {
 }
 
 void writeTimeStamps() {
-  std::string filename = "timestamps.txt";
+  std::string filename = "timestamps.bin";
   std::string filepath = outputDirectoryTime + filename;
   std::ofstream file(filepath);
   if(file.is_open()){
@@ -227,7 +232,7 @@ int main(int argc, char **argv) {
   }
 
   // Create a ROS subscriber for the input point cloud
-  ros::Subscriber sub = nh.subscribe(inputTopic, 1, cloud_cb);
+  ros::Subscriber sub = nh.subscribe(inputTopic, 10, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
   pubOutputPoints = nh.advertise<sensor_msgs::PointCloud2>("/DROR/output", 1);
