@@ -116,7 +116,7 @@ void writeCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in) {
 }
 
 void writeTimeStamps() {
-  std::string filename = "timestamps.bin";
+  std::string filename = "timestamps.txt";
   std::string filepath = outputDirectoryTime + filename;
   std::ofstream file(filepath);
   if(file.is_open()){
