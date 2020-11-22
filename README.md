@@ -8,7 +8,9 @@ Please view the results videos on my youtube channel: https://www.youtube.com/ch
 Please refer to our published paper on this work: https://ieeexplore.ieee.org/abstract/document/8575761
 
 ***NOTE***
+
 This package used to rely on my custom fork of pcl which had the filter implementation for PointCloud2 data type. This is now all self-contained in this repo. However, the DROR filter only works with pcl::PointCloud\<pcl::PointXYZI\> data type. The ROS node converts the scans to this format before filtering then converts back to ROS msg.
 
 **DATASETS**
+
 A lot of people have asked about getting access to the datasets used for this work, please see: http://cadcd.uwaterloo.ca/
