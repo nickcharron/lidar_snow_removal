@@ -158,7 +158,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg) {
   ros::Time begin = ros::Time::now();
 
   // apply filter
-  outrem.Filter(cloud_input, *cloud_filtered);
+  outrem.Filter<pcl::PointXYZI>(cloud_input, *cloud_filtered);
 
   // Get duration
   currentDuration = ros::Time::now() - begin;
