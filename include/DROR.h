@@ -7,7 +7,8 @@
 /**
  * @brief class for crop box filter
  */
-class DROR {
+class DROR
+{
 public:
   /**
    * @brief default constructor
@@ -39,7 +40,7 @@ public:
 
   /**
    * @brief Method for getting azimuth angle in degrees
-   * @return azimuth_angle
+   * @return azimuth_angle in degrees
    */
   double GetAzimuthAngle();
 
@@ -75,19 +76,20 @@ public:
    */
 
   template <typename T>
-  void Filter(typename pcl::PointCloud<T>::Ptr& input_cloud,
-              typename pcl::PointCloud<T>& filtered_cloud);
+  void Filter(typename pcl::PointCloud<T>::Ptr &input_cloud,
+              typename pcl::PointCloud<T> &filtered_cloud);
 
 private:
   double radius_multiplier_{3};
-  double azimuth_angle_{0.04};
+  double azimuth_angle__rad_{0.04 * M_PI / 180};
   double min_neighbors_{3};
   double min_search_radius_{0.04};
 };
 
 template <typename T>
-void DROR::Filter(typename pcl::PointCloud<T>::Ptr& input_cloud,
-                  typename pcl::PointCloud<T>& filtered_cloud) {
+void DROR::Filter(typename pcl::PointCloud<T>::Ptr &input_cloud,
+                  typename pcl::PointCloud<T> &filtered_cloud)
+{
   using KdTreePtr = typename pcl::KdTreeFLANN<T>::Ptr;
   //    Clear points in output cloud
   filtered_cloud.clear();
@@ -99,14 +101,15 @@ void DROR::Filter(typename pcl::PointCloud<T>::Ptr& input_cloud,
   // Go over all the points and check which doesn't have enough neighbors
   // perform filtering
   for (typename pcl::PointCloud<T>::iterator it = input_cloud->begin();
-       it != input_cloud->end(); ++it) {
+       it != input_cloud->end(); ++it)
+  {
     float x_i = it->x;
     float y_i = it->y;
     float range_i = sqrt(pow(x_i, 2) + pow(y_i, 2));
-    float search_radius_dynamic =
-        radius_multiplier_ * azimuth_angle_ * M_PI / 180 * pow(range_i / 5, 3);
+    float search_radius_dynamic = radius_multiplier_ * 2 * range_i * sin(azimuth_angle__rad_);
 
-    if (search_radius_dynamic < min_search_radius_) {
+    if (search_radius_dynamic < min_search_radius_)
+    {
       search_radius_dynamic = min_search_radius_;
     }
 
@@ -117,6 +120,9 @@ void DROR::Filter(typename pcl::PointCloud<T>::Ptr& input_cloud,
         kd_tree_->radiusSearch(*it, search_radius_dynamic, pointIdxRadiusSearch,
                                pointRadiusSquaredDistance);
 
-    if (neighbors >= min_neighbors_) { filtered_cloud.push_back(*it); }
+    if (neighbors >= min_neighbors_)
+    {
+      filtered_cloud.push_back(*it);
+    }
   }
 }

@@ -8,12 +8,12 @@ double DROR::GetRadiusMultiplier() {
     return radius_multiplier_;
 }
 
-void DROR::SetAzimuthAngle(double azimuth_angle) {
-    azimuth_angle_ = azimuth_angle;
+void DROR::SetAzimuthAngle(double azimuth_angle_deg) {
+    azimuth_angle__rad_ = azimuth_angle_deg * M_PI / 180;
 }
 
 double DROR::GetAzimuthAngle() {
-    return azimuth_angle_;
+    return azimuth_angle__rad_ * 180 / M_PI;
 }
 
 void DROR::SetMinNeighbors(double min_neighbors) {
