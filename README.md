@@ -14,3 +14,18 @@ This package used to rely on my custom fork of pcl which had the filter implemen
 **DATASETS**
 
 A lot of people have asked about getting access to the datasets used for this work, please see: http://cadcd.uwaterloo.ca/
+
+**Citation**
+
+If you found this work useful, please consider leaving a star ⭐ on this repository and citing our paper:
+
+```bibtex
+@inproceedings{charron2018noising,
+  title={De-noising of lidar point clouds corrupted by snowfall},
+  author={Charron, Nicholas and Phillips, Stephen and Waslander, Steven L},
+  booktitle={2018 15th Conference on Computer and Robot Vision (CRV)},
+  pages={254--261},
+  year={2018},
+  organization={IEEE}
+}
+```
