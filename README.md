@@ -1,11 +1,12 @@
-# lidar_snow_removal
+# Dynamic Radius Outlier Removal | DROR
+
+![DROR cover image](DROR.png)
+
 This repo is a set of nodes for ROS to filter point clouds with the goal of removing snow in Lidar data.
 
 To use this code, simply change the topics in the launch files to your scan topics, then play your bags and launch the appropriate launch files.
 
-Please view the results videos on my youtube channel: https://www.youtube.com/channel/UC3FoqSLn12-dKOQ1Sn0xbFQ/featured?view_as=subscriber
-
-Please refer to our published paper on this work: https://ieeexplore.ieee.org/abstract/document/8575761
+Please view the results videos on [youtube](https://www.youtube.com/channel/UC3FoqSLn12-dKOQ1Sn0xbFQ/)
 
 ***NOTE***
 
@@ -17,7 +18,7 @@ A lot of people have asked about getting access to the datasets used for this wo
 
 **Citation**
 
-If you found this work useful, please consider leaving a star ⭐ on this repository and citing our paper:
+If you found this work useful, please consider leaving a star ⭐ on this repository and citing [our paper](https://ieeexplore.ieee.org/abstract/document/8575761):
 
 ```bibtex
 @inproceedings{charron2018noising,
