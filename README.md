@@ -16,6 +16,18 @@ This package used to rely on my custom fork of pcl which had the filter implemen
 
 A lot of people have asked about getting access to the datasets used for this work, please see: http://cadcd.uwaterloo.ca/
 
+**Building and Testing**
+
+To build the package and compile the benchmark tests using `catkin build`:
+```bash
+catkin build lidar_snow_removal --make-args tests
+```
+
+To run the test and output the processing times to your terminal:
+```bash
+catkin test lidar_snow_removal --no-deps
+```
+
 **Citation**
 
 If you found this work useful, please consider leaving a star ⭐ on this repository and citing [our paper](https://ieeexplore.ieee.org/abstract/document/8575761):

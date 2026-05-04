@@ -21,21 +21,23 @@ ros::Publisher pubOutputPoints, pubAvgDuration, pubAvgRate;
 ros::Duration currentDuration(0), accumDuration(0);
 ros::Time begin;
 std::string inputTopic, outputDirectory, outputDirectoryClouds,
-            outputDirectoryTime;
+    outputDirectoryTime;
 bool writeToKitty = false;
 double radiusSearch, multiplier, azAngle, minSR;
 std_msgs::Float64 averageDuration, averageRate;
 int minNeighbours, noCloudsProcessed = 0;
 std::vector<std::string> timestamps;
 
-TimePoint rosTimeToChrono(const std_msgs::Header& hdr) {
+TimePoint rosTimeToChrono(const std_msgs::Header &hdr)
+{
   std::chrono::seconds secs(hdr.stamp.sec);
   std::chrono::nanoseconds nsecs(hdr.stamp.nsec);
   auto dur = secs + nsecs;
   return TimePoint(dur);
 }
 
-std::string convertTimeToDate(TimePoint time_) {
+std::string convertTimeToDate(TimePoint time_)
+{
   using namespace std;
   using namespace std::chrono;
   system_clock::duration tp = time_.time_since_epoch();
@@ -50,7 +52,8 @@ std::string convertTimeToDate(TimePoint time_) {
   return outputTime;
 }
 
-std::string convertTimeToKitty(const std_msgs::Header &header) {
+std::string convertTimeToKitty(const std_msgs::Header &header)
+{
   TimePoint time_stamp = rosTimeToChrono(header);
   using namespace std;
   using namespace std::chrono;
@@ -59,35 +62,51 @@ std::string convertTimeToKitty(const std_msgs::Header &header) {
 
   std::string year, month, day, hour, minute, second, nanosecond;
   year = to_string(local_tm.tm_year + 1900);
-  if(local_tm.tm_mon + 1 < 10) {
+  if (local_tm.tm_mon + 1 < 10)
+  {
     month = "0" + to_string(local_tm.tm_mon + 1);
-  } else {
+  }
+  else
+  {
     month = to_string(local_tm.tm_mon + 1);
   }
-  if(local_tm.tm_mday < 10) {
+  if (local_tm.tm_mday < 10)
+  {
     day = "0" + to_string(local_tm.tm_mday);
-  } else {
+  }
+  else
+  {
     day = to_string(local_tm.tm_mday);
   }
-  if(local_tm.tm_hour < 10) {
+  if (local_tm.tm_hour < 10)
+  {
     hour = "0" + to_string(local_tm.tm_hour);
-  } else {
+  }
+  else
+  {
     hour = to_string(local_tm.tm_hour);
   }
-  if(local_tm.tm_min < 10) {
+  if (local_tm.tm_min < 10)
+  {
     minute = "0" + to_string(local_tm.tm_min);
-  } else {
+  }
+  else
+  {
     minute = to_string(local_tm.tm_min);
   }
-  if(local_tm.tm_sec < 10) {
+  if (local_tm.tm_sec < 10)
+  {
     second = "0" + to_string(local_tm.tm_sec);
-  } else {
+  }
+  else
+  {
     second = to_string(local_tm.tm_sec);
   }
 
   nanosecond = std::to_string(header.stamp.nsec);
   int missingZeros = 9 - nanosecond.size();
-  for (int i = 0; i < missingZeros; i++){
+  for (int i = 0; i < missingZeros; i++)
+  {
     nanosecond = "0" + nanosecond;
   }
 
@@ -96,41 +115,52 @@ std::string convertTimeToKitty(const std_msgs::Header &header) {
   return outputTime;
 }
 
-void writeCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in) {
+void writeCloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr &cloud_in)
+{
   std::string filename =
       std::to_string(noCloudsProcessed + 10000000000) + ".txt";
   filename.erase(0, 1);
   std::string filepath = outputDirectoryClouds + filename;
   std::ofstream file(filepath);
-  if(file.is_open()){
-    for (uint32_t i = 0; i < cloud_in->points.size(); i++){
+  if (file.is_open())
+  {
+    for (uint32_t i = 0; i < cloud_in->points.size(); i++)
+    {
       file << std::setprecision(4) << cloud_in->points[i].x << " "
-                                   << cloud_in->points[i].y << " "
-                                   << cloud_in->points[i].z << " "
-                                   << cloud_in->points[i].intensity << "\n";
+           << cloud_in->points[i].y << " "
+           << cloud_in->points[i].z << " "
+           << cloud_in->points[i].intensity << "\n";
     }
-  } else {
+  }
+  else
+  {
     ROS_ERROR("Cannot write point cloud to file: %s", filepath.c_str());
   }
   file.close();
 }
 
-void writeTimeStamps() {
+void writeTimeStamps()
+{
   std::string filename = "timestamps.txt";
   std::string filepath = outputDirectoryTime + filename;
   std::ofstream file(filepath);
-  if(file.is_open()){
+  if (file.is_open())
+  {
     ROS_INFO("Writing time stamps to file: %s", filepath.c_str());
-    for (uint32_t i = 0; i < timestamps.size(); i++){
+    for (uint32_t i = 0; i < timestamps.size(); i++)
+    {
       file << timestamps[i] << "\n";
     }
-  } else {
+  }
+  else
+  {
     ROS_ERROR("Cannot write time stamps to file: %s", filepath.c_str());
   }
   file.close();
 }
 
-void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg) {
+void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg)
+{
   // Count number of point clouds processed
   noCloudsProcessed++;
 
@@ -148,7 +178,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg) {
   pcl::fromPCLPointCloud2(input_cloud2, *cloud_input);
 
   // Perform filtering
-  DROR outrem;
+  DROR<pcl::PointXYZI> outrem;
   outrem.SetRadiusMultiplier(multiplier);
   outrem.SetAzimuthAngle(azAngle);
   outrem.SetMinSearchRadius(minSR);
@@ -158,7 +188,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg) {
   ros::Time begin = ros::Time::now();
 
   // apply filter
-  outrem.Filter<pcl::PointXYZI>(cloud_input, *cloud_filtered);
+  outrem.Filter(cloud_input, *cloud_filtered);
 
   // Get duration
   currentDuration = ros::Time::now() - begin;
@@ -184,7 +214,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_msg) {
   pubAvgDuration.publish(averageDuration);
   pubAvgRate.publish(averageRate);
 
-  if (writeToKitty) {
+  if (writeToKitty)
+  {
     writeCloud(cloud_filtered);
     timestamps.push_back(convertTimeToKitty(cloud_msg->header));
   }
@@ -196,7 +227,8 @@ void mySigintHandler(int sig)
   ros::shutdown();
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   // Initialize ROS
   ros::init(argc, argv, "dynamicRadiusOutlierFilter");
   ros::NodeHandle nh;
@@ -219,7 +251,8 @@ int main(int argc, char **argv) {
   ROS_INFO("Minimum neighbours required in each search radius is set to: %d",
            minNeighbours);
   ROS_INFO("Minimum search radius set to: %.3f", minSR);
-  if (writeToKitty) {
+  if (writeToKitty)
+  {
     ROS_INFO("Saving clouds in kitty format to: %s", outputDirectory.c_str());
     outputDirectoryClouds =
         outputDirectory + "/" +

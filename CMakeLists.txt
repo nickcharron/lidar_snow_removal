@@ -52,3 +52,11 @@ target_link_libraries(radiusOutlierFilter ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(voxelGridFilter ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(statsOutlierFilter ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 target_link_libraries(cropBoxFilter ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(GTest REQUIRED)
+  
+  catkin_add_gtest(benchmark_filters tests/benchmark_filters.cpp)
+  target_include_directories(benchmark_filters PRIVATE include)
+  target_link_libraries(benchmark_filters ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PROJECT_NAME}_core)
+endif()
